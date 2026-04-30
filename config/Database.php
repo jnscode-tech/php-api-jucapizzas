@@ -32,8 +32,13 @@ class Database {
         //Em caso de erro na conxeão, a mensagem de erro é exibida
         echo "Connection error: " . $e->getMessage();
     }catch(Exception $e) {
-        echo "Erro: " . $e->getMessage();
-    }       
+        echo "Erro Conexao: " . $e->getMessage();
+    }
+    catch(Throwable $e) {
+        echo "Erro genérico: " . $e->getMessage();
+    }
+    
+    
       return $this->conn;
 }
 }
