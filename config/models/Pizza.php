@@ -1,12 +1,12 @@
 <?php
 class Pizza {
     private $conn;
-    private $table_name = "pizzas";
+    private $tabela = "pizzas";
 
-    public $id;
-    public $name;
-    public $description;
-    public $price;
+    public $idPizza;
+    public $nome;
+    public $ingredientes;
+    public $valor;
 
     public function __construct($db) {
         $this->conn = $db;
