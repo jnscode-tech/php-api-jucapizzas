@@ -1,10 +1,17 @@
 <?php
 class Database {
-    private $host = "localhost";
-    private $db_name = "jucapizzasdb";
+    // private $host = "localhost";
+    // private $db_name = "jucapizzasdb";
+    // private $username = "root";
+    // private $password = "usbw";
+    // private $port ="3310";
+
+    ///EM CASA
+    private $host = "127.0.0.1"; // <-- Mudei aqui para testar o TCP/IP
+    private $db_name = "Pizzaria";
     private $username = "root";
-    private $password = "usbw";
-    private $port ="3310";
+    private $password = ""; // <-- Confirme se é exatamente a mesma do phpMyAdmin
+    private $port = "3306";
 
 
     public $conn;
@@ -12,6 +19,7 @@ class Database {
     public function getConnection() {
 
     $this -> conn = null;
+
     try {
      // tenta executar um código potencialmente periogoso
      //DNS (Data Source Name) - String de conexão
