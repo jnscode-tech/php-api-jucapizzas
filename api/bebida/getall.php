@@ -6,20 +6,20 @@ header("Content-Type: application/json; charset=UTF-8");
  
 // Incluir arquivos de banco de dados e modelo
 include_once '../../config/Database.php';
-include_once '../../models/Pizza.php';
+include_once '../../models/Bebida.php';
  
 // Instanciar o objeto Database e obter a conexão
 $database = new Database();
 $db = $database->getConnection();
  
 // Instanciar o objeto Pizza
-$bebidas = new bebidas($db);
+$bebida = new Bebida($db);
  
 // try{ colocar para demonstrar erro com coluna errada mas lá no método read em pizza
     // Chamar o método read() para buscar as pizzas
 if($_SERVER['REQUEST_METHOD']=='GET'){
     
-    $stmt = $bebidas->getall();
+    $stmt = $bebida->getall();
     $num = $stmt->rowCount();
  
     // Verificar se mais de 0 registros foram encontrados
@@ -33,7 +33,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
             extract($row);
 
             // Um array que representará um assoc com um elemento (cada pizza)
-            $bebidas_item = array(
+            $bebida_item = array(
                 "id" => $idBebida,
                 "nome" => $nome,
                 "tamanho" => $tamanho,
@@ -41,7 +41,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
                 "categoria" => $categoria
             );
  
-            array_push($bebidas_arr, $bebidas_item); //formato assoc
+            array_push($bebidas_arr, $bebida_item); //formato assoc
         }
  
         // Definir o código de resposta como 200 OK
