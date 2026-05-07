@@ -4,10 +4,10 @@ class Pizza
     private $conn;
     private $tabela = "pizzas";
  
-    private $idPizza;
-    private $name;
-    private $ingredientes;
-    private $valor;
+    public $idPizza;
+    public $nome;
+    public $ingredientes;
+    public $valor;
  
     public function __construct($db) {
         $this->conn = $db;
@@ -24,5 +24,33 @@ class Pizza
  
         return $stmt; //Retornando o resultado da query
   }
- 
-  }
+  public function get(){
+    //Localhost/api/pizza/get.php?id=7
+    $query = 'SELECT
+    idPizza,
+    nome,
+    ingredientes,
+    valor
+    FROM
+    '. $this->tabela .'
+    WHERE
+    idPizza = ?
+    LIMIT 1';
+  
+  //Preparar a query
+  $stmt = $this->conn->prepare($query);
+  
+  //Vincula o ID
+  $stmt->bindParam(1, $this->idPizza);
+
+  //Executar a query
+  $stmt->execute();
+
+  $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+  // Define as propriedades
+  $this->nome = $row['nome'];
+  $this->ingredientes = $row['ingredientes'];
+  $this->valor = $row['valor'];
+}
+}
