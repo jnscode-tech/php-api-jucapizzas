@@ -32,16 +32,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
  
         // Converte para JSON e envia a resposta
         // `JSON_PRETTY_PRINT` é opcional, mas deixa o JSON mais legível
-        echo json_encode($pizza_arr);
+        echo json_encode($pizza_arr,128);
     } else {
- 
- 
+      //http_response_code(400);
+      header("http/1.1 400 Bad Request");
+      echo json_encode(array("Erro" => "ID não informado.")
+          );
+
     }
 }else {
-     http_response_code(405);
-    echo json_encode(
-            array("Mensagem" => "Método não permitido.")
-        );
+ // http_response_code(405);
+ header("http/1.1 400 Bad Request");
+  echo json_encode(
+          array("Mensagem" => "Método não permitido.")
+      );
+
 }
  
 
