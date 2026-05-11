@@ -1,5 +1,5 @@
 <?php
-// CRIAR ROTA GETALL.PHP
+// CRIAR ROTA GETALL BEBIDA
 // Headers obrigatórios
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -32,7 +32,7 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
             // A função extract transforma $row['nome'] em apenas $nome
             extract($row);
 
-            // Um array que representará um assoc com um elemento (cada pizza)
+            // Um array que representará um assoc com um elemento (cada bebida)
             $bebida_item = array(
                 "id" => $idBebida,
                 "nome" => $nome,
@@ -48,13 +48,13 @@ if($_SERVER['REQUEST_METHOD']=='GET'){
        // http_response_code(200);
        header("http/1.1 200 OK");
  
-        // Mostrar os dados das pizzas em formato JSON
+        // Mostrar os dados das bebidas em formato JSON
         echo json_encode($bebidas_arr);
     } else {
-        // Se nenhuma pizza for encontrada, definir o código de resposta como 404 Not Found
+        // Se nenhuma bebida for encontrada, definir o código de resposta como 404 Not Found
         http_response_code(404);
  
-        // Informar ao usuário que nenhuma pizza foi encontrada
+        // Informar ao usuário que nenhuma bebida foi encontrada
         echo json_encode(
             array("message" => "Nenhuma pizza encontrada.")
         );
