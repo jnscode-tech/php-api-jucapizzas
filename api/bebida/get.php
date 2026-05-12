@@ -18,9 +18,12 @@ $bebida = new Bebida($db);
 $bebida->idBebida = isset($_GET['id']) ? $_GET['id'] : null;
  
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+
     if ($bebida->idBebida) {
         // Busca a bebida
         $bebida->get();
+
+        if ($bebida->nome) { // Verifica se a bebida foi encontrada 
  
         // Cria o array de resposta
         $bebida_arr = array(
@@ -33,40 +36,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
  
         // Converte para JSON e envia a resposta
         // `JSON_PRETTY_PRINT` é opcional, mas deixa o JSON mais legível
-        echo json_encode($bebida_arr);
+        echo json_encode($bebida_arr,128);
     } else {
- 
- 
-    }
+      //http_response_code(400);
+      header("http/1.1 404 Not Found");
+      echo json_encode(array("Mensagem" => "Bebida não encontrada."));
+        }
+      } else {
+ // http_response_code(405);
+ header("http/1.1 400 Bad Request");
+  echo json_encode(
+          array("Erro" => "ID não informado.")
+      );}
+
 }else {
-     http_response_code(405);
-    echo json_encode(
-            array("Mensagem" => "Método não permitido.")
-        );
+ // http_response_code(404);
+ header("http/1.1 405 Method Not Allowed");
+  echo json_encode(
+          array("Mensagem" => "Método não permitido.")
+      );
 }
+    
+
+
+
+
+
  
 
-
-
-    //try colocar para demonstrar erro com coluna errada mas lá no método read em pizza
-    //Chamar o método read() para buscar as pizzas
-   //$smt = $pizza->read();
-   //$num = $smt->rowCount();
-   //array("message" => "Nenhuma pizza encontrada.");
-
-//}
-
-
-
-//Instanciar o objeto Pizza
-//$pizza = new Pizza($db);
-
-//IF ternário
-//$pizza->idPizza = isset($_GET['id']) ? $_GET['id'] : null;
-
-//IF comum
-//if isset($_GET['id']) {
-  //  $pizza->idPizza = $_GET['id'];
-//} else {
-  //  $pizza->idPizza = null;
-//}
